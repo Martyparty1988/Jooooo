@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pracovní výkazy & Finance</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Připojení Font Awesome (vyžaduje internet nebo lokální instalaci) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <h1>Pracovní výkazy & Finance</h1>
+        <nav>
+            <button data-section="timer-reports" class="active">Časovač & Výkazy</button>
+            <button data-section="finance">Finance</button>
+            <button data-section="debts">Dluhy</button>
+            <button data-section="settings">Nastavení</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sekce Časovač a Výkazy (Výchozí) -->
+        <section id="timer-reports" class="content-section active">
+            <h2>Časovač</h2>
+            <div class="timer-container">
+                <div id="timer-display">00:00:00</div>
+                <div class="timer-controls">
+                    <button id="start-stop-btn"><i class="fas fa-play"></i> Start</button>
+                    <button id="reset-btn"><i class="fas fa-undo"></i> Reset</button>
+                </div>
+            </div>
+
+            <!-- Dialog pro uložení výkazu (skrytý) -->
+            <div id="save-report-dialog" class="dialog hidden">
+                <h3>Uložit pracovní výkaz</h3>
+                <form id="save-report-form">
+                    <input type="hidden" id="report-start-time">
+                    <input type="hidden" id="report-end-time">
+                    <input type="hidden" id="report-duration-ms">
+
+                    <div>
+                        <label for="report-project">Projekt/Úkol:</label>
+                        <input type="text" id="report-project" required>
+                    </div>
+                    <div>
+                        <label for="report-category">Kategorie:</label>
+                        <select id="report-category" required>
+                            <!-- Kategorie budou načteny z localStorage -->
+                        </select>
+                    </div>
+                     <div>
+                        <label>Začátek:</label>
+                        <span id="report-start-display"></span>
+                    </div>
+                    <div>
+                        <label>Konec:</label>
+                        <span id="report-end-display"></span>
+                    </div>
+                     <div>
+                        <label>Doba trvání:</label>
+                        <span id="report-duration-display"></span>
+                    </div>
+                     <div>
+                        <label for="report-notes">Poznámky:</label>
+                        <textarea id="report-notes"></textarea>
+                    </div>
+                    <div class="dialog-buttons">
+                        <button type="submit">Uložit</button>
+                        <button type="button" id="cancel-save-btn">Zrušit</button>
+                    </div>
+                </form>
+            </div>
+
+            <h2>Pracovní výkazy</h2>
+            <div id="reports-summary">
+                <!-- Souhrn bude zde -->
+            </div>
+            <div class="table-container">
+                <table id="reports-table">
+                    <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Projekt/Úkol</th>
+                            <th>Kategorie</th>
+                            <th>Doba trvání</th>
+                            <th>Poznámky</th>
+                            <th>Akce</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reports-table-body">
+                        <!-- Řádky budou generovány pomocí JS -->
+                        <tr><td colspan="6">Načítání dat...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+             <p id="no-reports-message" class="hidden">Zatím nebyly zadány žádné pracovní výkazy.</p>
+             <button id="add-manual-report-btn"><i class="fas fa-plus"></i> Přidat ručně</button>
+        </section>
+
+        <!-- Sekce Finance (Zatím prázdná) -->
+        <section id="finance" class="content-section hidden">
+            <h2>Finance</h2>
+            <p>Tato sekce bude obsahovat správu financí.</p>
+            <!-- Obsah pro finance zde -->
+        </section>
+
+        <!-- Sekce Dluhy (Zatím prázdná) -->
+        <section id="debts" class="content-section hidden">
+            <h2>Dluhy</h2>
+            <p>Tato sekce bude obsahovat správu dluhů a splátek.</p>
+            <!-- Obsah pro dluhy zde -->
+        </section>
+
+        <!-- Sekce Nastavení (Zatím prázdná) -->
+        <section id="settings" class="content-section hidden">
+            <h2>Nastavení</h2>
+            <p>Tato sekce bude obsahovat nastavení aplikace.</p>
+            <div id="categories-settings">
+                 <h3>Kategorie pracovních výkazů</h3>
+                 <ul id="work-categories-list"></ul>
+                 <input type="text" id="new-work-category" placeholder="Nová kategorie výkazu">
+                 <button id="add-work-category-btn">Přidat</button>
+            </div>
+             <div id="export-settings">
+                <h3>Export</h3>
+                 <button id="export-csv-btn" disabled>Exportovat do CSV (zatím neaktivní)</button>
+             </div>
+             <div id="reset-app-settings">
+                 <h3>Resetovat data</h3>
+                 <button id="reset-all-data-btn" class="danger">Resetovat všechna data aplikace</button>
+             </div>
+            <!-- Obsah pro nastavení zde -->
+        </section>
+    </main>
+
+    <footer>
+        <p>© <span id="current-year"></span> Vaše Jméno/Firma</p>
+    </footer>
+
+    <!-- Overlay pro dialogy -->
+    <div id="overlay" class="hidden"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
